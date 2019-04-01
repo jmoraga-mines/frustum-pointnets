@@ -209,11 +209,13 @@ def point_cloud_masking(point_cloud, logits, end_points, xyz_only=True):
     mask = tf.slice(logits,[0,0,0],[-1,-1,1]) < \
         tf.slice(logits,[0,0,1],[-1,-1,1])
     mask = tf.to_float(mask) # BxNx1
-    mask_count = tf.tile(tf.reduce_sum(mask,axis=1,keep_dims=True),
+    # Error: keep_dims is deprecated, using keepdims instad (tensorflow module)
+    #mask_count = tf.tile(tf.reduce_sum(mask,axis=1,keep_dims=True),
+    mask_count = tf.tile(tf.reduce_sum(mask,axis=1,keepdims=True),
         [1,1,3]) # Bx1x3
     point_cloud_xyz = tf.slice(point_cloud, [0,0,0], [-1,-1,3]) # BxNx3
     mask_xyz_mean = tf.reduce_sum(tf.tile(mask, [1,1,3])*point_cloud_xyz,
-        axis=1, keep_dims=True) # Bx1x3
+        axis=1, keepdims=True) # Bx1x3
     mask = tf.squeeze(mask, axis=[2]) # BxN
     end_points['mask'] = mask
     mask_xyz_mean = mask_xyz_mean/tf.maximum(mask_count,1) # Bx1x3

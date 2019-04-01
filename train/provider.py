@@ -5,7 +5,8 @@ Date: September 2017
 '''
 from __future__ import print_function
 
-import cPickle as pickle
+#import cPickle as pickle
+import _pickle as pickle
 import sys
 import os
 import numpy as np
@@ -128,24 +129,29 @@ class FrustumDataset(object):
         if from_rgb_detection:
             with open(overwritten_data_path,'rb') as fp:
                 self.id_list = pickle.load(fp)
-                self.box2d_list = pickle.load(fp)
-                self.input_list = pickle.load(fp)
-                self.type_list = pickle.load(fp)
+                self.box2d_list = pickle.load(fp, encoding='bytes')
+                self.input_list = pickle.load(fp, encoding='bytes')
+                # Error: the next line was not required
+                #self.label_list = pickle.load(fp, encoding='bytes')
+                # Error in original code for F-Pointnet. Next 3 lines missing
+                self.type_list = pickle.load(fp) # pickle.load(fp, encoding='bytes')
+                #self.heading_list = pickle.load(fp) # pickle.load(fp, encoding='bytes')
+                #self.size_list = pickle.load(fp, encoding='bytes')
                 # frustum_angle is clockwise angle from positive x-axis
-                self.frustum_angle_list = pickle.load(fp) 
-                self.prob_list = pickle.load(fp)
+                self.frustum_angle_list = pickle.load(fp, encoding='bytes') 
+                self.prob_list = pickle.load(fp, encoding='bytes')
         else:
             with open(overwritten_data_path,'rb') as fp:
                 self.id_list = pickle.load(fp)
-                self.box2d_list = pickle.load(fp)
-                self.box3d_list = pickle.load(fp)
-                self.input_list = pickle.load(fp)
-                self.label_list = pickle.load(fp)
-                self.type_list = pickle.load(fp)
-                self.heading_list = pickle.load(fp)
-                self.size_list = pickle.load(fp)
+                self.box2d_list = pickle.load(fp, encoding='bytes')
+                self.box3d_list = pickle.load(fp, encoding='bytes')
+                self.input_list = pickle.load(fp, encoding='bytes')
+                self.label_list = pickle.load(fp, encoding='bytes')
+                self.type_list = pickle.load(fp) # pickle.load(fp, encoding='bytes')
+                self.heading_list = pickle.load(fp) # pickle.load(fp, encoding='bytes')
+                self.size_list = pickle.load(fp, encoding='bytes')
                 # frustum_angle is clockwise angle from positive x-axis
-                self.frustum_angle_list = pickle.load(fp) 
+                self.frustum_angle_list = pickle.load(fp, encoding='bytes') 
 
     def __len__(self):
             return len(self.input_list)
