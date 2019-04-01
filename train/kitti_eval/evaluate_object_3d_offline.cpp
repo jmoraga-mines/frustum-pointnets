@@ -835,11 +835,13 @@ bool eval(string gt_dir, string result_dir, Mail* mail){
     // check for errors
     if (!gt_success) {
       mail->msg("ERROR: Couldn't read: %s of ground truth. Please write me an email!", file_name);
-      return false;
+      // TODO: Fix this, it's skipping files
+      // return false;
     }
     if (!det_success) {
       mail->msg("ERROR: Couldn't read: %s", file_name);
-      return false;
+      // TODO: Fix this, it's skipping files
+      // return false;
     }
   }
   mail->msg("  done.");
