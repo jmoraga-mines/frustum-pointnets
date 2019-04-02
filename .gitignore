@@ -112,6 +112,10 @@ venv.bak/
 train/log/
 wendian_plot/
 train/frustum_pointnets_snapshots/
+*.bak
+
+### PyCharm ###
+.idea/
 
 
 ### pre-compiled files ###
