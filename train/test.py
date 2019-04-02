@@ -140,7 +140,7 @@ def inference(sess, ops, pc, one_hot_vec, batch_size):
             mask_mean_prob = mask_mean_prob / np.sum(batch_seg_mask,1) # B,
         except:
             print("Error when dividing %s by %s (train/test.py line 140)" % \
-                  (mask_mean_prob. np.sum(batch_seg_mask,1))
+                  (mask_mean_prob. np.sum(batch_seg_mask,1)) )
             mask_mean_prob = 0
         heading_prob = np.max(softmax(batch_heading_scores),1) # B
         size_prob = np.max(softmax(batch_size_scores),1) # B,
